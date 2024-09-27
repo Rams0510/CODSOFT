@@ -19,13 +19,12 @@ public class QuizAppWithTimer{
         {"1. <>", "2. ><", "3. ==", "4. ="}
     };
 
-    static String[] correctAnswers = {"1", "2", "4", "3", "3"}; // Correct answers as strings
+    static String[] correctAnswers = {"1", "2", "4", "3", "3"}; 
     static int score = 0;
-    static int timeLimit = 10; // Time limit in seconds
+    static int timeLimit = 10; 
     static Timer timer;
     static boolean timeUp = false;
 
-    // Timer logic to count down
     private static void startTimer() {
         timer = new Timer();
         timer.schedule(new TimerTask() {
@@ -33,9 +32,8 @@ public class QuizAppWithTimer{
             public void run() {
                 timeUp = true;
             }
-        }, timeLimit * 1000); // Convert seconds to milliseconds
+        }, timeLimit * 1000); 
     }
-    // Method to get user answer with a timer check
     private static String getUserAnswer(Scanner scanner) {
         String answer = "";
         while (!timeUp && answer.isEmpty()) {
@@ -45,8 +43,6 @@ public class QuizAppWithTimer{
         }
         return answer;
     }
-
-    // Display final score
     private static void displayResult() {
         System.out.println("Quiz completed!");
         System.out.println("Your final score is: " + score + " out of " + questions.length);
@@ -54,23 +50,15 @@ public class QuizAppWithTimer{
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         for (int i = 0; i < questions.length; i++) {
-            // Display question
+            
             System.out.println("Question " + (i + 1) + ": " + questions[i]);
             for (int j = 0; j < options[i].length; j++) {
                 System.out.println(options[i][j]);
             }
-
-            // Start timer
             timeUp = false;
             startTimer();
-
-            // Get user answer
             String answer = getUserAnswer(scanner);
-
-            // Stop the timer
             timer.cancel();
-
-            // Check answer
             if (timeUp) {
                 System.out.println("Time's up! Moving to the next question.");
             } else if (answer.equals(correctAnswers[i])) {
@@ -79,11 +67,8 @@ public class QuizAppWithTimer{
             } else {
                 System.out.println("Incorrect. The correct answer is: " + correctAnswers[i]);
             }
-
-            System.out.println(); // For spacing between questions
+            System.out.println(); 
         }
-
-        // Display final score
         displayResult();
         scanner.close();
     }
